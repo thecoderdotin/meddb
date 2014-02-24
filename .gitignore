@@ -4,3 +4,15 @@
 *.db
 .*.swp
 meddb.json
+
+### Django ###
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+### Vagrant ###
+.vagrant/
+
+### PyCharm  ###
+.idea/
