@@ -15,12 +15,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'meddb2013',
-        'USER': 'meddb',
-        'PASSWORD': 'sarpam2010',
-        'HOST': 'mysql',
-        'PORT': '3306',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -128,10 +128,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'south',
-    'registrations',
-    'dataimports',
-    'validationreports',
-    'currency',
+#    'registrations',
+#    'dataimports',
+#    'validationreports',
+#    'currency',
 )
 
 # A sample logging configuration. The only tangible logging

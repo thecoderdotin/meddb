@@ -21,7 +21,7 @@ sudo pip install virtualenv virtualenvwrapper
 
 # The following adds configuration files to ~/.bashrc
 # to run during startup
-echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
-echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+sudo echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
+sudo echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 # This just reruns the file after adding the above lines
-source ~/.bashrc
+sudo source ~/.bashrc
