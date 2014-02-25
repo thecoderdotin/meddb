@@ -16,3 +16,6 @@ local_settings.py
 
 ### PyCharm  ###
 .idea/
+
+### South Migrations ###
+migrations/
