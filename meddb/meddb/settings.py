@@ -128,10 +128,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'south',
-#    'registrations',
-#    'dataimports',
-#    'validationreports',
-#    'currency',
+    'registrations',
+    'dataimports',
+    'validationreports',
+    'currency',
 )
 
 # A sample logging configuration. The only tangible logging
