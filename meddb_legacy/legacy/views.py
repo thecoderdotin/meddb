@@ -7,6 +7,7 @@ except ImportError:
 
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
+from django.shortcuts import render
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +32,8 @@ def medicine_list(request):
         strength = ' + '.join([i['strength'] for i in medicine['ingredients']])
         medicine['strength'] = strength
     data.sort(key=lambda x: x['formulation'])
-    return direct_to_template(request, 'medicine_list.html', extra_context={ 'data': data })
+    return render(request, 'medicine_list.html', {'data': data})
+
 
 def medicine(request, _id):
     url = '%s/json/medicine/%d/' % (BASE_URL, int(_id))
