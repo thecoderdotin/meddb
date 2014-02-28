@@ -1,16 +1,19 @@
 from __future__ import division
 from itertools import groupby
 from dateutil import parser
+import csv
+from collections import defaultdict, OrderedDict
+
 from django.http import Http404
 from django.http import HttpResponse
+from django.shortcuts import render
+
 from registrations import models as reg_models
-from datetime import datetime
-from collections import defaultdict, OrderedDict
-from django import http
-import csv
-import json
 
 sadc_countries = "ANG BWA COD LES MAW MUS MOZ NAM SEY ZAF SWZ TZA ZMB ZWE".split()
+
+def medicines_list(request):
+    return render(request, "public_pages/listing/meddb.html")
 
 def get_procurements(start_date, end_date):
     return reg_models.Procurement.objects.filter(

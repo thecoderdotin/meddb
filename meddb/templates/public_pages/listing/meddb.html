@@ -2,24 +2,24 @@
 <html>
   <head>
     <title>SADC Medicine Registration Database</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/custom.css" />
     <!--<script src="js/bootstrap.js"></script>-->
     <!--<script src="js/bootstrap-tab.js"></script>-->
-    <script type="text/javascript" src="js/d3.v2.js"></script>
-    <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
-    <script type="text/javascript" src="js/underscore-min.js"></script>
-    <script type="text/javascript" src="js/horizontalbargraph.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/d3.v2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/underscore-min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/horizontalbargraph.js"></script>
   </head>
     <body>
         <div class="container">
             <div class="row" id="banner">
                 <div class="span12">
-                  <h1>Medicine Prices Database<img src="img/sadc.png"/></h1>
+                  <h1>Medicine Prices Database<img src="{{ STATIC_URL }}img/sadc.png"/></h1>
                 </div>
             </div>
             <div id="meddb_container"></div>
-            <script type="text/javascript" src="js/meddb.alpha.js"></script>
+            <script type="text/javascript" src="{{ STATIC_URL }}js/meddb.alpha.js"></script>
             <div class="row" id="help">
     <!--
 	<div class="span2">
