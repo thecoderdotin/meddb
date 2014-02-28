@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>SADC Medicine Registration Database</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/custom.css" />
+    <!--<script src="js/bootstrap.js"></script>-->
+    <!--<script src="js/bootstrap-tab.js"></script>-->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/d3.v2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/underscore-min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/horizontalbargraph.js"></script>
+  </head>
+    <body>
+      <div class="container">
+      {% include "common_elements/widget_header.html" %} 
+        <div id="meddb_container">
+        </div>
+
+
+      </div>
+  </body>
+</html>
