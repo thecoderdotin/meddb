@@ -138,7 +138,7 @@ class Medicine(models.Model):
     def avgprice(self):
         sum = 0
         tot = 0
-        procurements =  Procurement.objects.filter(product__medicine=self)
+        procurements = Procurement.objects.filter(product__medicine=self)
         for p in procurements:
             sum += p.price_usd * p.volume
             tot += p.container.quantity * p.volume

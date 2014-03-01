@@ -126,7 +126,7 @@ class MedicineView(JSONRepresentation):
     def get_json_data(self, *args, **kwargs):
         data = super(MedicineView, self).get_json_data(*args, **kwargs)
         procurements = data["procurements"]
-
+        print "Procurements:", procurements
         new_procurements = self.remove_old_procurements(procurements)
         data["procurements"] = new_procurements
             

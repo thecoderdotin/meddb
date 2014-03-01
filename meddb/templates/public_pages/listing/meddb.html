@@ -1,1 +1,33 @@
 {% extends "common_elements/base.html" %}
+
+{% block title %}List of medicines{% endblock %}  
+
+{% block meddb_container %}
+<div class="meddb_inner_page">
+    <input id="meddb_medicine_search" type="text" placeholder="search"/>
+    <table class="table table-bordered" id="meddb_medicine_list">
+        <thead>
+            <tr>
+                <th>Formulation</th>
+                <th>Strength</th>
+                <th>Dosage Form</th>
+                <th>Avg. Price (USD)</th>
+                <th>MSH Price (USD)</th>
+            </tr>
+
+            {% for medicine in medicines %}
+            <tr>
+                <td>{% if medicine.name %}{{ medicine.name|capfirst }}{% endif %}</td>
+                <td>Strength</td>
+                <td>Dosage Form</td>
+                <td>Avg. Price (USD)</td>
+                <td>MSH Price (USD)</td>
+            </tr>
+            {% endfor %}
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+{% endblock %}
+

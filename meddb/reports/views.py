@@ -13,7 +13,13 @@ from registrations import models as reg_models
 sadc_countries = "ANG BWA COD LES MAW MUS MOZ NAM SEY ZAF SWZ TZA ZMB ZWE".split()
 
 def medicines_list(request):
-    return render(request, "public_pages/listing/meddb.html")
+    send_dict = {}
+    try:
+        medicines = reg_models.Medicine.objects.all()
+    except:
+        medicines = []
+    send_dict["medicines"] = medicines
+    return render(request, "public_pages/listing/meddb.html", send_dict)
 
 def get_procurements(start_date, end_date):
     return reg_models.Procurement.objects.filter(
