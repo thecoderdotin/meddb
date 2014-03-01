@@ -99,8 +99,11 @@ class Medicine(models.Model):
     def actives(self):
         return ', '.join([str(i) for i in self.ingredient_set.all()])
 
-    def ingredients_list(self):
-        return ' + '.join([str(i.inn) for i in self.ingredient_set.all()])
+    def display_name(self):
+        ingredients_list = ' + '.join([i.name for i in self.ingredients.all()])
+        if self.name:
+            return "%s (%s)" % (self.name, ingredients_list)
+        return ingredients_list
 
     @property
     def msh(self):
