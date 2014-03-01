@@ -17,7 +17,10 @@
 
             {% for medicine in medicines %}
             <tr>
-                <td>{% if medicine.name %}{{ medicine.name|capfirst }}{% endif %}</td>
+                <td>
+                  {% if medicine.name %}{{ medicine.name|capfirst }}{% endif %}
+                  {{ medicine.ingredients_list }}
+                </td>
                 <td>Strength</td>
                 <td>Dosage Form</td>
                 <td>Avg. Price (USD)</td>

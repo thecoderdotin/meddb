@@ -98,7 +98,10 @@ class Medicine(models.Model):
     @property
     def actives(self):
         return ', '.join([str(i) for i in self.ingredient_set.all()])
-    
+
+    def ingredients_list(self):
+        return ' + '.join([str(i) for i in self.ingredient_set.all()])
+
     @property
     def msh(self):
         try:
@@ -145,6 +148,7 @@ class Medicine(models.Model):
         if tot > 0:
             return sum/tot
         return None
+
     
     def __unicode__(self):
         if self.name:
