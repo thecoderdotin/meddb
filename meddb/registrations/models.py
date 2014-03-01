@@ -100,7 +100,7 @@ class Medicine(models.Model):
         return ', '.join([str(i) for i in self.ingredient_set.all()])
 
     def ingredients_list(self):
-        return ' + '.join([str(i) for i in self.ingredient_set.all()])
+        return ' + '.join([str(i.inn) for i in self.ingredient_set.all()])
 
     @property
     def msh(self):

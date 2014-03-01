@@ -2,6 +2,7 @@ from __future__ import division
 from itertools import groupby
 from dateutil import parser
 import csv
+import operator
 from collections import defaultdict, OrderedDict
 
 from django.http import Http404
@@ -18,6 +19,7 @@ def medicines_list(request):
         medicines = reg_models.Medicine.objects.all()
     except:
         medicines = []
+    medicines = sorted(medicines, key=lambda k: k.name.lower() if k.name else str(k.ingredients_list()).lower())
     send_dict["medicines"] = medicines
     return render(request, "public_pages/listing/meddb.html", send_dict)
 
