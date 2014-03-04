@@ -105,6 +105,9 @@ class Medicine(models.Model):
             return "%s (%s)" % (self.name, ingredients_list)
         return ingredients_list
 
+    def display_strength(self):
+        return " + ".join([str(i.strength) for i in self.ingredient_set.all()])
+
     @property
     def msh(self):
         try:

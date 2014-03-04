@@ -1,8 +1,10 @@
 {% extends "common_elements/base.html" %}
 
-{% block title %}List of medicines{% endblock %}  
+{% block title %}List of medicines{% endblock %}
 
 {% block meddb_container %}
+
+        {{ name }}
 <div class="meddb_inner_page">
     <input id="meddb_medicine_search" type="text" placeholder="search"/>
     <table class="table table-bordered" id="meddb_medicine_list">

@@ -8,6 +8,7 @@ from collections import defaultdict, OrderedDict
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
 from registrations import models as reg_models
 
@@ -26,6 +27,12 @@ def medicines_list(request):
         key=lambda k: k.display_name().lower())
     send_dict["medicines"] = medicines
     return render(request, "public_pages/listing/meddb.html", send_dict)
+
+class IndividualMedicine(TemplateView):
+    template_name = "public_pages/listing/individual_medicine.html"
+
+    def get_context_data(self, **kwargs):
+        return {'name': 'Hello World'}
 
 
 def get_procurements(start_date, end_date):
