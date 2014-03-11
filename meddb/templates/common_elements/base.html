@@ -10,17 +10,27 @@
     <body>
       <div class="container">
       {% include "common_elements/widget_header.html" %} 
-      {% include "common_elements/widget_breadcrumb.html" %} 
+        <div class="row">
+          <div class="span12">
+            <ul class="breadcrumb" id="meddb_breadcrumb">
+              <li>
+                <a href="/">Home</a><span class="divider"> / </span>
+              </li>
+              {% block bread_crumb %}{% endblock %}
+            </ul>
+          </div>
+        </div>
         <div id="meddb_container">
           {% block meddb_container %}
           {% endblock %}
         </div>
       {% include "common_elements/widget_footer.html" %} 
       </div>
-      <script type="text/javascript" src="{{ STATIC_URL }}js/d3.v2.js"></script>
       <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+      <!-- <script type="text/javascript" src="{{ STATIC_URL }}js/d3.v2.js"></script>
       <script type="text/javascript" src="{{ STATIC_URL }}js/underscore-min.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}js/horizontalbargraph.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}js/horizontalbargraph.js"></script> -->
       {% block extra_js %}
       {% endblock %}
   </body>

@@ -1,35 +1,164 @@
 {% extends "common_elements/base.html" %}
 
-{% block title %}List of medicines{% endblock %}
+{% block title %}{{ medicine.display_name|title }}{{ medicine.display_strength|title }}{% endblock %}
+
+{% block bread_crumb %}
+<li class="active">
+    <a href="/medicine/{{ medicine.id }}/">Medicine: {{ medicine.display_name|title }} {{ medicine.display_strength|title }}</a><span class="divider"> / </span>
+</li>
+{% endblock %}
 
 {% block meddb_container %}
-
-        {{ name }}
 <div class="meddb_inner_page">
-    <input id="meddb_medicine_search" type="text" placeholder="search"/>
-    <table class="table table-bordered" id="meddb_medicine_list">
-        <thead>
-            <tr>
-                <th>Formulation</th>
-                <th>Strength</th>
-                <th>Dosage Form</th>
-                <th>Avg. Price (USD)</th>
-                <th>MSH Price (USD)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for medicine in medicines %}
-            <tr>
-                <td>{{ medicine.display_name|title }}</td>
-                <td>{{ medicine.display_strength }}</td>
-                <td>{{ medicine.dosageform }}</td>
-                <td>Optimization required</td>
-                <td>{{ medicine.msh }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="span12">
+            <h1>{{ medicine.display_name|title }} {{ medicine.display_strength|title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+              <li><a href="#prices" data-toggle="tab">Procurement Prices</a></li>
+              <li><a href="#related" data-toggle="tab">Related Products</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="prices">
+                  <div class="tab-pane active" id="procurement">
+                      <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th style="cursor: pointer;">Country▲</th>
+                                  <th style="cursor: pointer;">Price per Base Unit (USD)</th>
+                                  <th style="cursor: pointer;">Pack Price (USD)</th>
+                                  <th style="cursor: pointer;">Manufacturer</th>
+                                  <th style="cursor: pointer;">Country</th>
+                                  <th style="cursor: pointer;">MSH Ratio</th>
+                                  <th style="cursor: pointer;">Incoterm</th>
+                                  <th style="cursor: pointer;">Pack Size</th>
+                                  <th style="cursor: pointer;">Volume (Packs)</th>
+                                  <th style="cursor: pointer;">Procurement Period</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for procurement in medicine_dict.procurements %}
+                            <tr data-link="/medicine/{{ medicine.id }}/procurement/{{ procurement.id }}/" >
+                                    <td style="cursor: pointer;">{{ procurement.country.name }}</td>
+                                    <td style="cursor: pointer;">{{ procurement.price_per_unit }}</td>
+                                    <td style="cursor: pointer;">{{ procurement.price }}</td>
+                                    <td style="cursor: pointer;">{{ procurement.manufacturer.name }}</td>
+                                    <td style="cursor: pointer;">
+                                        {% for each_country in procurement.manufacturer.country %}
+                                            {{ each_country }},
+                                        {% endfor %}
+                                    </td>
+                                    <td style="cursor: pointer;">{{ procurement.msh_ratio|floatformat:4 }}</td>
+                                    <td style="cursor: pointer;">{{ procurement.incoterm.name }}</td>
+                                    <td style="cursor: pointer;">{{ procurement.container.quantity|floatformat:0 }} {{ procurement.container.unit }} ({{ procurement.container.type }})</td>
+                                    <td style="cursor: pointer;">{{ procurement.volume }}</td>
+                                    <td style="cursor: pointer;">{{ procurement.start_date }} to {{ procurement.end_date }}</td>
+                            </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              <div class="tab-pane" id="related">
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>Product</th>
+                              <th>Supplier</th>
+                              <th>Manufacturer</th>
+                              <th>Procurement Country</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for product in medicine_dict.products %}
+
+                                    <tr  data-link="/medicine/{{ medicine.id }}/product/{{ product.id }}/"  >
+                                      <td style="cursor: pointer;">{{ product.name|default:"(Name not available)" }}</td>
+                                      <td><span class="multi-element" style="cursor: pointer;">
+                                          {{ product.procurements.0.supplier.name }}
+                                      </span></td>
+                                      <td>
+                                            {{ product.procurements.0.manufacturer.name }}
+                                      </td>
+                                      <td>
+                                          {% for procurement in product.procurements %}
+                                            <span class="multi-element">{{ procurement.country.name }}</span>
+                                          {% endfor %}
+                                      </td>
+                                  </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="chart">
+                <div class="medianTitleWrap row-fluid">
+                    <div class="span3"></div>
+                    <div class="span9">
+                        <div class="medianTitle" style="width: {{ graph_procurements.mshprice_percent }}%" >
+                            {% if graph_procurements.mshprice_percent >= 50 %}
+                                MSH: ${{ medicine_dict.mshprice }} (2012 Median Buyer Price)
+                            {% endif %}
+                        </div>
+                        {% if graph_procurements.mshprice_percent < 50 %}
+                            MSH: ${{ medicine_dict.mshprice }} (2012 Median Buyer Price)
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="barsWrap">
+                    {% for procurement in graph_procurements.data %}
+                        <div class="row-fluid item">
+                            <div class="span3 title">{{ procurement.title }}</div>
+                            <div class="span9 individualBarWrap" >
+                                <div class="bar" style=" width:{{ procurement.price_percent }}%; background:#0088cc; " >
+                                    <span>
+                                        ${{ procurement.price|floatformat:3 }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="medianWrap row-fluid">
+                    <div class="span3"></div>
+                    <div class="span9">
+                        <div class="medianLine" style="width: {{ graph_procurements.mshprice_percent }}%" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 
 {% endblock %}
 
+
+{% block extra_js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+    $('.nav a:first').tab('show');
+
+    $("table tr").click(function() {
+        window.location = $(this).attr("data-link")
+    });
+    $(".medianLine").css({
+        "height": $(".barsWrap").css("height"),
+    });
+});
+
+</script>
+{% endblock %}

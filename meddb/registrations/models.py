@@ -140,8 +140,11 @@ class Medicine(models.Model):
             d['name'] = self.name.capitalize()
         if procurements:
             d['procurements'] = [p.as_dict() for p in Procurement.objects.filter(product__medicine=self)]
+            for i, each_procurement in enumerate(d['procurements']):
+                d['procurements'][i].update({'msh_ratio': each_procurement['price_per_unit'] / d['mshprice']})
         if products:
             d['products'] = [p.as_dict(medicine=False, minimal=minimal) for p in self.product_set.all()]
+        print d
         return d
     
     def avgprice(self):

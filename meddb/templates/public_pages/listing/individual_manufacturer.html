@@ -1,0 +1,45 @@
+{% extends "common_elements/base.html" %}
+
+{% block title %}{{ medicine.display_name|title }}{{ medicine.display_strength|title }}{% endblock %}
+
+{% block bread_crumb %}
+<li class="active" >
+    <a href="/manufacturer/{{ manufacturer.id }}/">Manufacturer: {{ manufacturer.name|default:"(Name Unavailable)" }}</a><span class="divider"> / </span>
+</li>
+{% endblock %}
+
+{% block meddb_container %}
+<div class="meddb_inner_page">
+    <div class="row">
+        <div class="span12">
+            <h2>Manufacturer Detail</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+    <table class="table table-bordered" id="meddb_product_detail">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ manufacturer_dict.name|default:"(Name Unavailable)" }}</td>
+            </tr>
+            <tr>
+                <th>Site</th>
+                <td>{{ manufacturer_dict.site|default:"(Unavailable)"  }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ manufacturer_dict.country.name|default:"(Unavailable)"  }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+        </div>
+
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+{% endblock %}

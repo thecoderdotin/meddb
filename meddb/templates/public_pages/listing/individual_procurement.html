@@ -1,0 +1,53 @@
+{% extends "common_elements/base.html" %}
+
+{% block title %}{{ medicine.display_name|title }}{{ medicine.display_strength|title }}{% endblock %}
+
+{% block bread_crumb %}
+<li>
+    <a href="/medicine/{{ medicine.id }}/">Medicine: {{ medicine.display_name|title }} {{ medicine.display_strength|title }}</a><span class="divider"> / </span>
+</li>
+<li class="active">
+    <a href="/medicine/{{ medicine.id }}/procurement/{{ procurement.id }}/">Procurement {{ procurement.id }}</a><span class="divider"> / </span>
+</li>
+{% endblock %}
+
+{% block meddb_container %}
+<div class="meddb_inner_page">
+    <div class="row">
+        <div class="span12">
+            <h1>Procurement Detail</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+        <table class="table table-bordered" id="meddb_procurement_detail">
+            <tbody>
+            <tr><th>Product Name</th><td>{{ procurement.product.name|default:"(Not Available)" }}</td></tr>
+            <tr><th>Container</th><td>{{ procurement.container.quantity }} {{ procurement.container.unit }}  {{ procurement.container.type }}</td></tr>
+            <tr><th>Volume</th><td>{{ procurement.volume }} (in packs of {{ procurement.packsize }})</td></tr>
+            <tr><th>Price</th><td>{{ procurement.price_usd }} USD</td></tr>
+            <tr><th>Incoterm</th><td>{{ procurement.incoterm.name }}</td></tr>
+            <tr><th>Supplier</th><td style="cursor: pointer;">{{ procurement.supplier.name }}</td></tr>
+            <tr data-link="/manufacturer/{{ procurement.manufacturer.id }}/" ><th>Manufacturer</th><td style="cursor: pointer;">{{ procurement.manufacturer.name|default:"(Not Available)" }} - {{ procurement.manufacturer.country.0|default:"(Not Available)" }}</td></tr>
+            <tr><th>Country</th><td>{{ procurement.country.name|default:"(Not Available)" }} ({{ procurement.country.code }})</td></tr>
+            <tr><th>Procurement Method</th><td>{{ procurement.method|default:"(Not Available)" }}</td></tr>
+            <tr><th>Period</th><td>{{ procurement.start_date }} to {{ procurement.end_date }}</td></tr>
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script type="text/javascript" >
+    $(document).ready(function() {
+        $("table tr").click(function() {
+            window.location = $(this).attr("data-link")
+        });
+    });
+</script>
+{% endblock %}

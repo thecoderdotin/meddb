@@ -1,10 +1,10 @@
 {% extends "common_elements/base.html" %}
 
-{% block title %}List of medicines{% endblock %}  
+{% block title %}List of medicines{% endblock %}
 
 {% block meddb_container %}
 <div class="meddb_inner_page">
-    <input id="meddb_medicine_search" type="text" placeholder="search"/>
+    <!-- <input id="meddb_medicine_search" type="text" placeholder="search"/> -->
     <table class="table table-bordered" id="meddb_medicine_list">
         <thead>
             <tr>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
             {% for medicine in medicines %}
-            <tr>
+            <tr data-link="/medicine/{{ medicine.id }}/" >
                 <td>{{ medicine.display_name|title }}</td>
                 <td>{{ medicine.display_strength }}</td>
                 <td>{{ medicine.dosageform }}</td>
@@ -29,5 +29,27 @@
     </table>
 </div>
 
+{% endblock %}
+
+
+{% block extra_js %}
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    	var dataTable = $('#meddb_medicine_list').dataTable({
+		"bPaginate": false,
+		"bLengthChange": true,
+		"bFilter": true,
+		"bSort": false,
+		"bInfo": false,
+		"bAutoWidth": false });
+
+		$("#meddb_medicine_list tbody tr").click(function() {
+            window.location = $(this).attr("data-link")
+		});
+});
+
+</script>
 {% endblock %}
 

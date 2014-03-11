@@ -1,0 +1,86 @@
+{% extends "common_elements/base.html" %}
+
+{% block title %}{{ medicine.display_name|title }}{{ medicine.display_strength|title }}{% endblock %}
+
+{% block bread_crumb %}
+<li>
+    <a href="/medicine/{{ medicine.id }}/">Medicine: {{ medicine.display_name|title }} {{ medicine.display_strength|title }}</a><span class="divider"> / </span>
+</li>
+<li class="active">
+    <a href="/medicine/{{ medicine.id }}/product/{{ product.id }}/">Related Product ID:{{ product.id }}</a><span class="divider"> / </span>
+</li>
+{% endblock %}
+
+{% block meddb_container %}
+<div class="meddb_inner_page">
+    <div class="row">
+        <div class="span12">
+            <h2>Product Detail</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+    <table class="table table-bordered" id="meddb_product_detail">
+        <tbody>
+            <tr>
+                <th>Formulation</th>
+                <td>
+                    {% for each_ingredient in  product.medicine.ingredients %}
+                        {{ each_ingredient.inn }},
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Strength</th>
+                <td>
+
+                    {% for each_ingredient in  product.medicine.ingredients %}
+                        {{ each_ingredient.strength }},
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Dosage Form</th>
+                <td>{{ product.medicine.dosageform.name }}</td>
+            </tr>
+            <tr>
+                <th>Manufacturer</th>
+                <td>{{ product.manufacturer.name }} - {{ product.manufacturer.country }}</td>
+            </tr>
+            <tr>
+                <th>Site</th>
+                <td>{{ product.manufacturer.site }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+        </div>
+
+    <div class="row">
+        <div class="span12">
+    <h2 id="meddb_suppliers_heading">Listed Suppliers</h2>
+    <table class="table table-bordered" id="meddb_product_registration">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Supplier</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for each_procurement in  product.procurements %}
+            <tr>
+                <td>{{ each_procurement.country.name }}</td>
+                <td style="cursor: pointer;">{{ each_procurement.supplier.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+{% endblock %}

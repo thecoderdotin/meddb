@@ -79,4 +79,55 @@ div#meddb_medicine_prices {
 
 #footer {
     color: #888;
+    margin-top: 30px;
+}
+
+/* Bar graph on Medicine page */
+.chart {
+    position: relative;
+    padding-top: 30px;
+    border:thin solid black inline;
+}
+.barsWrap {
+}
+.barsWrap .item {
+    margin-bottom: 3px;
+}
+.barsWrap .item  .title {
+    text-align: right;
+}
+
+.individualBarWrap {
+    background: #dfe7e5;
+    height: 28px;
+}
+.barsWrap span {
+    padding: 4px 4px;
+    color: white;
+    display: inline-block;
+    height: 100%;
+}
+
+.medianTitleWrap {
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    height:30px;
+}
+.medianTitleWrap * {
+    color: #d71920;
+    vertical-align: bottom;
+    text-align: left;
+}
+.medianTitleWrap .medianTitle {
+    display: inline-block;
+    text-align: right;
+}
+.medianWrap {
+    position: absolute;
+    left: 0px;
+    top: 30px;
+}
+.medianLine {
+    border-right: dotted 3px #d71920;
 }
